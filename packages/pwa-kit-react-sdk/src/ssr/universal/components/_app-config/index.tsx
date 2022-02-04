@@ -9,8 +9,24 @@
  * @module progressive-web-sdk/ssr/universal/components/_app-config
  */
 
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, {ReactFragment} from 'react'
+// import PropTypes from 'prop-types'
+import {PerformanceTimer} from '../../../../../../pwa-kit-runtime/src/utils/ssr-server'
+
+// TODO: maybe there already exists a type in Express type definition?
+interface Locals {
+    originalUrl: string;
+    requestClass: string;
+    requestId: number;
+    timer: PerformanceTimer;
+    contentEncodingSet: boolean;
+}
+
+interface AppConfigProps {
+    children: React.ReactNode;
+}
+
+type ApplicationState = any
 
 /**
  * This is a special component that can be overridden in a project. It supports
@@ -23,7 +39,7 @@ import PropTypes from 'prop-types'
  *      methods across an application. We can't use React's context to do this
  *      because getProps() and co. need to be static methods.
  */
-class AppConfig extends React.Component {
+class AppConfig extends React.Component<AppConfigProps> {
     /**
      * Restore a state management backend from frozen state that was embedded
      * into the page HTML.
@@ -36,7 +52,7 @@ class AppConfig extends React.Component {
      * @param frozen - the application state, restored from JSON in the HTML.
      */
     // eslint-disable-next-line no-unused-vars
-    static restore(locals, frozen = {}) {}
+    static restore(locals: Locals | {}, frozen: ApplicationState = {}): void {}
 
     /**
      * Freeze a state management backend for embedding into the page HTML.
@@ -47,7 +63,7 @@ class AppConfig extends React.Component {
      *    serialized into JSON and embedded in the page HTML.
      */
     // eslint-disable-next-line no-unused-vars
-    static freeze(locals) {
+    static freeze(locals: Locals | {}): ApplicationState {
         return undefined
     }
 
@@ -60,7 +76,7 @@ class AppConfig extends React.Component {
      * @return {Object}
      */
     // eslint-disable-next-line no-unused-vars
-    static extraGetPropsArgs(locals) {
+    static extraGetPropsArgs(locals: Locals | {}): any {
         return {}
     }
 
@@ -73,9 +89,9 @@ class AppConfig extends React.Component {
     }
 }
 
-AppConfig.propTypes = {
-    children: PropTypes.node,
-    locals: PropTypes.object
-}
+// AppConfig.propTypes = {
+//     children: PropTypes.node,
+//     locals: PropTypes.object
+// }
 
 export default AppConfig
