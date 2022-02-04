@@ -106,6 +106,8 @@
   },
   "devDependencies": {
     "@loadable/component": "^5.15.0",
+    "@types/express": "^4.17.13",
+    "@types/react": "^17.0.39",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "internal-lib-build": "^2.0.0-dev.1",
     "react": "^17.0.2",
