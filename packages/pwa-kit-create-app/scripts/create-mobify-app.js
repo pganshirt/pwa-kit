@@ -57,8 +57,8 @@ const TEST_PROJECT = 'test-project' // TODO: This will be replaced with the `iso
 const RETAIL_REACT_APP_DEMO = 'retail-react-app-demo'
 const RETAIL_REACT_APP = 'retail-react-app'
 
-const PRIVATE_PRESETS = [TEST_PROJECT, HELLO_WORLD, HELLO_WORLD_TEST_PROJECT]
-const PUBLIC_PRESETS = [RETAIL_REACT_APP_DEMO, RETAIL_REACT_APP]
+const PRIVATE_PRESETS = [TEST_PROJECT, HELLO_WORLD_TEST_PROJECT]
+const PUBLIC_PRESETS = [RETAIL_REACT_APP_DEMO, RETAIL_REACT_APP, HELLO_WORLD]
 const PRESETS = PRIVATE_PRESETS.concat(PUBLIC_PRESETS)
 
 const DEFAULT_OUTPUT_DIR = p.join(process.cwd(), 'pwa-kit-starter-project')
@@ -473,6 +473,12 @@ Examples:
     instance that is used for demo purposes. No questions are asked.
     
     Use this preset to try out PWA Kit.
+
+  ${program.name()} --preset "${HELLO_WORLD}"
+    Generate a bare-bones express app template.
+    
+    Use this as a starting point for APIs or as a base on top of 
+    which to build new project templates for Managed Runtime. 
   `)
     program
         .option(
@@ -482,7 +488,7 @@ Examples:
         )
         .option(
             '--preset <name>',
-            `The name of a project preset to use (choices: "retail-react-app" "retail-react-app-demo")`
+            `The name of a project preset to use (choices: ${PUBLIC_PRESETS.map((x) => `"${x}"`).join(', ')})`
         )
 
     program.parse(process.argv)

@@ -1,22 +1,25 @@
 # Hello World
 
-This is a test app for Managed Runtime, for internal use. 
+This is a bare-bones project template for apps running on
+Managed Runtime. You can use it as a starting point to
+build simple Express apps, APIs, or as a base on top of
+which to build new templates for Managed Runtime, using
+different frameworks.
 
-This app purposefully has the smallest footprint possible, to help 
-Salesforce staff talk about and test the feature-set of Managed Runtime
-itself, without being distracted by the complex dependencies of
-eg. the Retail React App.
-
-Please do not add features to this app to make it an attractive starting
-point for developer projects! We need something minimal for internal use.
-Start a brand-new project template instead, if there's need for one.
-
-This app is *intentionally not* a PWA – MRT does not require it.
-
-## Setup/Run/Deploy
+## Setup and run
 
 ```bash
 npm ci
 npm start
+```
+
+## Deploy
+
+```bash
 npm run push
 ```
+
+### Useful Links:
+
+-   [Getting Started](https://developer.salesforce.com/docs/commerce/pwa-kit-managed-runtime/guide/getting-started.html)
+-   [Pushing and Deploying Bundles](https://developer.salesforce.com/docs/commerce/pwa-kit-managed-runtime/guide/pushing-and-deploying-bundles.html)
