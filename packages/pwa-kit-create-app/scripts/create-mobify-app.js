@@ -488,7 +488,9 @@ Examples:
         )
         .option(
             '--preset <name>',
-            `The name of a project preset to use (choices: ${PUBLIC_PRESETS.map((x) => `"${x}"`).join(', ')})`
+            `The name of a project preset to use (choices: ${PUBLIC_PRESETS.map(
+                (x) => `"${x}"`
+            ).join(', ')})`
         )
 
     program.parse(process.argv)
