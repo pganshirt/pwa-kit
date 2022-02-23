@@ -39,7 +39,7 @@ import {RESOLVED_PROMISE} from './express'
 import http from 'http'
 import https from 'https'
 import {proxyConfigs, updatePackageMobify} from '../../utils/ssr-shared'
-import {configureProxyConfigs} from '../../utils/ssr-server'
+import {configureProxyConfigs, getConfig} from '../../utils/ssr-server'
 import awsServerlessExpress from 'aws-serverless-express'
 
 /**
@@ -174,7 +174,7 @@ export const RemoteServerFactory = {
     },
 
     updatePackageMobify(options) {
-        updatePackageMobify(options.mobify)
+        updatePackageMobify(getConfig())
     },
 
     configureProxyConfigs(options) {
@@ -620,9 +620,9 @@ export const RemoteServerFactory = {
             }
         }
 
-        if (!(options.mobify instanceof Object)) {
-            throw new Error('The mobify option passed to the SSR server must be an object')
-        }
+        // if (!(options.mobify instanceof Object)) {
+        //     throw new Error('The mobify option passed to the SSR server must be an object')
+        // }
 
         const {sslFilePath} = options
         if (
@@ -658,6 +658,9 @@ export const RemoteServerFactory = {
         const _require = eval('require')
         const serverRenderer = _require(path.join(buildDir, 'server-renderer.js')).default
         const stats = _require(path.join(buildDir, 'loadable-stats.json'))
+        
+        app.config = getConfig()
+        
         app.use(serverRenderer(stats))
 
         // Only serve worker.js if the user is setting up a server-side

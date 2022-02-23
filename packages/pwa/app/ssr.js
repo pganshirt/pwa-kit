@@ -27,7 +27,7 @@ const options = {
     manifestPath: 'static/manifest.json',
 
     // This is the value of the 'mobify' object from package.json
-    mobify: pkg.mobify,
+    mobify: {},
 
     // The port that the local dev server listens on
     port: 3000,

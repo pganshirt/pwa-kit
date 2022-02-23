@@ -278,7 +278,16 @@ const renderer =
 
                     // Must only appear on one config – this one is the only mandatory one.
                     new CopyPlugin({
-                        patterns: [{from: 'app/static/', to: 'static/'}]
+                        patterns: [
+                            {from: 'app/static/', to: 'static/'},
+                            {
+                                from: 'config/',
+                                to: 'config/',
+                                globOptions: {
+                                    gitignore: true
+                                }
+                            }
+                        ]
                     })
                 ]
             }

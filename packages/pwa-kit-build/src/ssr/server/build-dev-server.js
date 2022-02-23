@@ -20,12 +20,14 @@ import requireFromString from 'require-from-string'
 import config from '../../configs/webpack/config'
 import {loadingScreen} from './loading-screen'
 import {RemoteServerFactory} from 'pwa-kit-runtime/ssr/server/build-remote-server'
+import {getConfig} from 'pwa-kit-runtime/utils/ssr-server'
 
 const chalk = require('chalk')
 
 const CONTENT_TYPE = 'content-type'
 const CONTENT_ENCODING = 'content-encoding'
 const NO_CACHE = 'max-age=0, nocache, nostore, must-revalidate'
+
 
 /**
  * @private
@@ -103,6 +105,9 @@ export const DevServerMixin = {
     },
 
     addSSRRenderer(app) {
+
+        app.config = getConfig()
+
         // Proxy bundle asset requests to the local
         // build directory.
         app.use(
