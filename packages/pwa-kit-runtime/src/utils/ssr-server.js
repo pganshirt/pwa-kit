@@ -1375,11 +1375,10 @@ export class PerformanceTimer {
     }
 }
 
-export const getConfig = () => {
+export const loadConfig = () => {
 
     const isRemote = Object.prototype.hasOwnProperty.call(process.env, 'AWS_LAMBDA_FUNCTION_NAME')
     let moduleName = process?.env?.DEPLOY_TARGET || ''
-
 
     // Match config files based on the specificity from most to most general.
     const explorerSync = cosmiconfigSync(moduleName, {

@@ -409,8 +409,14 @@ export const routeComponent = (Wrapped, isPage, locals) => {
  *
  * @private
  */
-export const getRoutes = (locals) => {
-    const allRoutes = [...routes, {path: '*', component: Throw404}]
+export const getRoutes = (locals, config) => {
+    let _routes = routes
+
+    if (typeof _routes === 'function') {
+        _routes = _routes(config)
+    }
+    
+    const allRoutes = [..._routes, {path: '*', component: Throw404}]
     return allRoutes.map(({component, ...rest}) => {
         return {
             component: component ? routeComponent(component, true, locals) : component,

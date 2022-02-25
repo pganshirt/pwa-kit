@@ -11,6 +11,7 @@ import {proxyConfigs} from 'pwa-kit-runtime/utils/ssr-shared'
 
 const onClient = typeof window !== 'undefined'
 
+
 /**
  * Get the URL that should be used to load an asset from the bundle.
  *

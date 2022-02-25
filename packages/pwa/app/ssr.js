@@ -8,9 +8,8 @@
 
 const path = require('path')
 const {getRuntime, serveStaticFile} = require('pwa-kit-runtime/ssr/server/express')
-const {isRemote} = require('pwa-kit-runtime/utils/ssr-server')
+const {isRemote, loadConfig} = require('pwa-kit-runtime/utils/ssr-server')
 const helmet = require('helmet')
-const pkg = require('../package.json')
 
 const options = {
     // The build directory (an absolute path)
@@ -27,7 +26,7 @@ const options = {
     manifestPath: 'static/manifest.json',
 
     // This is the value of the 'mobify' object from package.json
-    mobify: {},
+    mobify: loadConfig(),
 
     // The port that the local dev server listens on
     port: 3000,
@@ -64,7 +63,7 @@ const {handler} = runtime.createHandler(options, (app) => {
         res.send()
     })
     app.get('/robots.txt', serveStaticFile('static/robots.txt'))
-
+ 
     runtime.addSSRRenderer(app)
 })
 

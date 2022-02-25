@@ -29,7 +29,7 @@ import Switch from '../universal/components/switch'
 import {getRoutes, routeComponent} from '../universal/components/route-component'
 import * as errors from '../universal/errors'
 import {detectDeviceType, isRemote} from 'pwa-kit-runtime/utils/ssr-server'
-import {proxyConfigs} from 'pwa-kit-runtime/utils/ssr-shared'
+import {proxyConfigs, setConfig} from 'pwa-kit-runtime/utils/ssr-shared'
 
 import sprite from 'svg-sprite-loader/runtime/sprite.build'
 
@@ -128,11 +128,18 @@ const initAppState = async ({App, component, match, route, req, res, location}) 
  * @return {Promise}
  */
 export const render = async (req, res, next) => {
+    
+    // NOTE: We didn't have to set the config here in V1, but because the SDK is now
+    // scoped in a difference project we have to set the config value in its new scope (SDK)
+    // even though it was set in the Runtime scope. Ideally there is a better way to
+    // do this.
+    setConfig(req.app.config)
+
     // AppConfig.restore *must* come before using getRoutes() or routeComponent()
     // to inject arguments into the wrapped component's getProps methods.
     AppConfig.restore(res.locals)
 
-    const routes = getRoutes(res.locals)
+    const routes = getRoutes(res.locals, req.app.config)
     const WrappedApp = routeComponent(App, false, res.locals)
 
     const [pathname, search] = req.originalUrl.split('?')
